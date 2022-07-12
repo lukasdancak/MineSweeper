@@ -1,5 +1,7 @@
 package minesweeper.core;
 
+import java.util.Random;
+
 /**
  * Field represents playing field and game logic.
  */
@@ -93,7 +95,32 @@ public class Field {
      * Generates playing field.
      */
     private void generate() {
-        throw new UnsupportedOperationException("Method generate not yet implemented");
+
+        // ulozenie min
+        int pocetMinNaUlozenie = this.getMineCount();
+        Random r = new Random(this.getRowCount());
+        Random c = new Random(this.getColumnCount());
+        int randomRow = 0;
+        int randomColumn = 0;
+
+        while (pocetMinNaUlozenie > 0) {
+            randomRow = r.nextInt();
+            randomColumn = c.nextInt();
+            if (this.getTile(randomRow, randomColumn) == null) {
+                tiles[randomRow][randomColumn] = new Mine();
+                pocetMinNaUlozenie--;
+            }
+
+
+        }
+        //ulozenie Clues
+        for (int i = 0; i < this.getRowCount(); i++) {
+            for (int j = 0; j < this.getColumnCount(); j++) {
+                if (this.getTile(i, j) == null) {
+                    tiles[i][j] = new Clue(this.countAdjacentMines(i, j));
+                }
+            }
+        }
     }
 
     /**
@@ -139,15 +166,16 @@ public class Field {
     public Tile getTile(int row, int column) {
         return tiles[row][column];
     }
+
     /**
-     *@return whole array of tiles
-      */
+     * @return whole array of tiles
+     */
     public Tile[][] getTiles() {
         return tiles;
     }
 
     /**
-     *@return rowCount
+     * @return rowCount
      **/
     public int getRowCount() {
         return rowCount;
@@ -155,7 +183,7 @@ public class Field {
 
 
     /**
-     *@return columnCount
+     * @return columnCount
      */
     public int getColumnCount() {
         return columnCount;
@@ -163,7 +191,6 @@ public class Field {
 
 
     /**
-     *
      * @return variable mineCount
      */
     public int getMineCount() {
@@ -171,7 +198,6 @@ public class Field {
     }
 
     /**
-     *
      * @return variable state
      */
     public GameState getState() {
