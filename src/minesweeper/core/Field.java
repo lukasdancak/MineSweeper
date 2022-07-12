@@ -125,7 +125,7 @@ public class Field {
         return tiles[row][column];
     }
 
-    public Tile getTiles() {
+    public Tile[][] getTiles() {
         return tiles;
     }
 
