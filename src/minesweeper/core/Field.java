@@ -121,9 +121,15 @@ public class Field {
         return count;
     }
 
-    public Tile[][] getTiles() {
+    public Tile getTile(int row, int column) {
+        return tiles[row][column];
+    }
+
+    public Tile getTiles() {
         return tiles;
     }
+
+
 
     public int getRowCount() {
         return rowCount;
