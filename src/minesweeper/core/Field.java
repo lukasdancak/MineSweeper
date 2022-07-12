@@ -77,6 +77,9 @@ public class Field {
     public void markTile(int row, int column) {
         //toto dat prec :
         // throw new UnsupportedOperationException("Method markTile not yet implemented");
+        if (getTile(row,column).getState()== Tile.State.OPEN){return;}
+        if (getTile(row,column).getState()== Tile.State.MARKED){getTile(row,column).setState(Tile.State.CLOSED);}
+        else {{getTile(row,column).setState(Tile.State.MARKED);}}
     }
 
     /**
