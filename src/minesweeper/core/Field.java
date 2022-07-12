@@ -1,5 +1,7 @@
 package minesweeper.core;
 
+import java.util.Random;
+
 /**
  * Field represents playing field and game logic.
  */
@@ -93,7 +95,24 @@ public class Field {
      * Generates playing field.
      */
     private void generate() {
-        throw new UnsupportedOperationException("Method generate not yet implemented");
+        int pocetMinNaUlozenie = this.getMineCount();
+        Random r = new Random(this.getRowCount());
+        Random c = new Random(this.getColumnCount());
+        int randomRow=0;
+        int randomColumn=0;
+
+        while(pocetMinNaUlozenie>0){
+            randomRow=r.nextInt();
+            randomColumn=c.nextInt();
+            if(this.getTile(randomRow, randomColumn) == null){
+                tiles[randomRow][randomColumn]= new Mine();
+                pocetMinNaUlozenie--;
+            }
+
+
+        }
+
+
     }
 
     /**
