@@ -75,7 +75,8 @@ public class Field {
      * @param column column number
      */
     public void markTile(int row, int column) {
-        throw new UnsupportedOperationException("Method markTile not yet implemented");
+        //toto dat prec :
+        // throw new UnsupportedOperationException("Method markTile not yet implemented");
     }
 
     /**
