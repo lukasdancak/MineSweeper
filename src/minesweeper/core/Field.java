@@ -75,11 +75,18 @@ public class Field {
      * @param column column number
      */
     public void markTile(int row, int column) {
-        //toto dat prec :
-        // throw new UnsupportedOperationException("Method markTile not yet implemented");
-        if (getTile(row,column).getState()== Tile.State.OPEN){return;}
-        if (getTile(row,column).getState()== Tile.State.MARKED){getTile(row,column).setState(Tile.State.CLOSED);}
-        else {{getTile(row,column).setState(Tile.State.MARKED);}}
+        //toto dat prec : // throw new UnsupportedOperationException("Method markTile not yet implemented");
+
+        if (getTile(row, column).getState() == Tile.State.OPEN) {
+            return;
+        }
+        if (getTile(row, column).getState() == Tile.State.MARKED) {
+            getTile(row, column).setState(Tile.State.CLOSED);
+        } else {
+            {
+                getTile(row, column).setState(Tile.State.MARKED);
+            }
+        }
     }
 
     /**
@@ -124,28 +131,49 @@ public class Field {
         return count;
     }
 
+
+    /***
+     *@return specific Tile by row and column
+     */
+
     public Tile getTile(int row, int column) {
         return tiles[row][column];
     }
-
+    /**
+     *@return whole array of tiles
+      */
     public Tile[][] getTiles() {
         return tiles;
     }
 
-
-
+    /**
+     *@return rowCount
+     **/
     public int getRowCount() {
         return rowCount;
     }
 
+
+    /**
+     *@return columnCount
+     */
     public int getColumnCount() {
         return columnCount;
     }
 
+
+    /**
+     *
+     * @return variable mineCount
+     */
     public int getMineCount() {
         return mineCount;
     }
 
+    /**
+     *
+     * @return variable state
+     */
     public GameState getState() {
         return state;
     }
