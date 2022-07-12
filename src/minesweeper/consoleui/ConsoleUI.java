@@ -46,7 +46,10 @@ public class ConsoleUI {
     public void update() {
         throw new UnsupportedOperationException("Method update not yet implemented");
     }
-    
+
+
+
+
     /**
      * Processes user input.
      * Reads line from console and does the action on a playing field according to input string.

@@ -120,4 +120,24 @@ public class Field {
 
         return count;
     }
+
+    public Tile[][] getTiles() {
+        return tiles;
+    }
+
+    public int getRowCount() {
+        return rowCount;
+    }
+
+    public int getColumnCount() {
+        return columnCount;
+    }
+
+    public int getMineCount() {
+        return mineCount;
+    }
+
+    public GameState getState() {
+        return state;
+    }
 }
