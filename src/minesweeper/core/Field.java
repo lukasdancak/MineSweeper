@@ -130,11 +130,7 @@ public class Field {
     public void printField() {
         for (int i = 0; i < this.getRowCount(); i++) {
             for (int j = 0; j < this.getColumnCount(); j++) {
-                if (this.getTile(i, j) instanceof Mine) {
-                    System.out.print("*"+"  ");
-                } else {
-                    System.out.print(((Clue) this.getTile(i, j)).getValue() + "  ");
-                }
+                System.out.print(this.getTile(i, j).toString());
             }
             System.out.println();
         }
