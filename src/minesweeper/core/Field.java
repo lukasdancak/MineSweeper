@@ -98,14 +98,14 @@ public class Field {
 
         // ulozenie min
         int pocetMinNaUlozenie = this.getMineCount();
-        Random r = new Random(this.getRowCount());
-        Random c = new Random(this.getColumnCount());
+        Random r = new Random();
+        Random c = new Random();
         int randomRow = 0;
         int randomColumn = 0;
 
         while (pocetMinNaUlozenie > 0) {
-            randomRow = r.nextInt();
-            randomColumn = c.nextInt();
+            randomRow = r.nextInt(this.getRowCount());
+            randomColumn = c.nextInt(this.getColumnCount());
             if (this.getTile(randomRow, randomColumn) == null) {
                 tiles[randomRow][randomColumn] = new Mine();
                 pocetMinNaUlozenie--;
@@ -120,6 +120,21 @@ public class Field {
                     tiles[i][j] = new Clue(this.countAdjacentMines(i, j));
                 }
             }
+        }
+
+        this.printFiled();
+    }
+
+    public void printFiled (){
+        for(Tile[] tilesRow: tiles){
+            for(Tile t:tilesRow){
+                if(t instanceof Mine){
+                    System.out.print("M ");
+                } else{
+                    System.out.print("O ");
+                }
+            }
+            System.out.println();
         }
     }
 
@@ -164,7 +179,7 @@ public class Field {
      */
 
     public Tile getTile(int row, int column) {
-        return tiles[row][column];
+        return this.tiles[row][column];
     }
 
     /**
