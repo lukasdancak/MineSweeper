@@ -126,12 +126,12 @@ public class Field {
     }
 
     public void printFiled (){
-        for(Tile[] tilesRow: tiles){
-            for(Tile t:tilesRow){
-                if(t instanceof Mine){
+        for (int i = 0; i < this.getRowCount(); i++) {
+            for (int j = 0; j < this.getColumnCount(); j++) {
+                if (this.getTile(i, j) instanceof Mine) {
                     System.out.print("M ");
-                } else{
-                    System.out.print("O ");
+                } else {
+                    System.out.print(  ((Clue)this.getTile(i, j)).getValue()+" ");
                 }
             }
             System.out.println();
