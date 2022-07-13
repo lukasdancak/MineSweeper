@@ -4,22 +4,33 @@ package minesweeper.core;
  * Tile of a field.
  */
 public abstract class Tile {
-    
-    /** Tile states. */
+
+    /**
+     * Tile states.
+     */
     public enum State {
-        /** Open tile. */
-        OPEN, 
-        /** Closed tile. */
+        /**
+         * Open tile.
+         */
+        OPEN,
+        /**
+         * Closed tile.
+         */
         CLOSED,
-        /** Marked tile. */
+        /**
+         * Marked tile.
+         */
         MARKED
     }
-    
-    /** Tile state. */
+
+    /**
+     * Tile state.
+     */
     private State state = State.CLOSED;
-        
+
     /**
      * Returns current state of this tile.
+     *
      * @return current state of this tile
      */
     public State getState() {
@@ -28,6 +39,7 @@ public abstract class Tile {
 
     /**
      * Sets current current state of this tile.
+     *
      * @param state current state of this tile
      */
     void setState(State state) {

@@ -4,12 +4,18 @@ package minesweeper.core;
  * Game state.
  */
 public enum GameState {
-    /** Playing game. */
+    /**
+     * Playing game.
+     */
     PLAYING,
-    
-    /** Game failed. */
+
+    /**
+     * Game failed.
+     */
     FAILED,
-    
-    /** Game solved. */
+
+    /**
+     * Game solved.
+     */
     SOLVED
 }

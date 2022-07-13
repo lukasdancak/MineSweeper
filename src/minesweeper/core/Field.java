@@ -46,6 +46,8 @@ public class Field {
 
         //generate the field content
         generate();
+
+        printField();
     }
 
     /**
@@ -99,13 +101,13 @@ public class Field {
         // ulozenie min
         int pocetMinNaUlozenie = this.getMineCount();
         Random r = new Random();
-        Random c = new Random();
+        //Random c = new Random();
         int randomRow = 0;
         int randomColumn = 0;
 
         while (pocetMinNaUlozenie > 0) {
             randomRow = r.nextInt(this.getRowCount());
-            randomColumn = c.nextInt(this.getColumnCount());
+            randomColumn = r.nextInt(this.getColumnCount());
             if (this.getTile(randomRow, randomColumn) == null) {
                 tiles[randomRow][randomColumn] = new Mine();
                 pocetMinNaUlozenie--;
@@ -122,16 +124,16 @@ public class Field {
             }
         }
 
-        this.printFiled();
+
     }
 
-    public void printFiled (){
+    public void printField() {
         for (int i = 0; i < this.getRowCount(); i++) {
             for (int j = 0; j < this.getColumnCount(); j++) {
                 if (this.getTile(i, j) instanceof Mine) {
-                    System.out.print("M ");
+                    System.out.print("*"+"  ");
                 } else {
-                    System.out.print(  ((Clue)this.getTile(i, j)).getValue()+" ");
+                    System.out.print(((Clue) this.getTile(i, j)).getValue() + "  ");
                 }
             }
             System.out.println();

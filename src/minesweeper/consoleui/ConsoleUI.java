@@ -3,20 +3,26 @@ package minesweeper.consoleui;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
 import minesweeper.core.Field;
 
 /**
  * Console user interface.
  */
 public class ConsoleUI {
-    /** Playing field. */
+    /**
+     * Playing field.
+     */
     private Field field;
-    
-    /** Input reader. */
+
+    /**
+     * Input reader.
+     */
     private BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
-    
+
     /**
      * Reads line of text from the reader.
+     *
      * @return line as a string
      */
     private String readLine() {
@@ -26,9 +32,10 @@ public class ConsoleUI {
             return null;
         }
     }
-    
+
     /**
      * Starts the game.
+     *
      * @param field field of mines and clues
      */
     public void newGameStarted(Field field) {
@@ -37,17 +44,15 @@ public class ConsoleUI {
             update();
             processInput();
             //throw new UnsupportedOperationException("Resolve the game state - winning or loosing condition.");
-        } while(true);
+        } while (true);
     }
-    
+
     /**
      * Updates user interface - prints the field.
      */
     public void update() {
         //throw new UnsupportedOperationException("Method update not yet implemented");
     }
-
-
 
 
     /**
