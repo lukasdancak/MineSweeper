@@ -1,8 +1,11 @@
 package minesweeper.consoleui;
 
 import java.io.BufferedReader;
+import java.io.Console;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.SQLOutput;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import minesweeper.core.Field;
@@ -16,7 +19,7 @@ public class ConsoleUI implements minesweeper.UserInterface {
      * Playing field.
      */
     private Field field;
-    Pattern pattern = Pattern.compile("([OA]{1})([A-Z])([0-9]{1,2})");
+    Pattern pattern = Pattern.compile("([OM]{1})([A-Z]{1})([0-9]{1,2})");
 
     /**
      * Input reader.
@@ -94,41 +97,61 @@ public class ConsoleUI implements minesweeper.UserInterface {
         System.out.println("Zadaj svoj vstup.");
         System.out.println("Ocakavany vstup:  X – ukončenie hry, MA1 – označenie dlaždice v riadku A a stĺpci 1, OB4 – odkrytie dlaždice v riadku B a stĺpci 4. ");
         String playerInput = readLine();
-        if(!isInputCorrect(playerInput)){ processInput();}
-        if(!isInputInBorderOfField(playerInput)){ processInput();}
-        
+        Matcher matcher = pattern.matcher(playerInput);
+        //overi vstup s patternom
+        if ( !pattern.matcher(playerInput).matches() ){
+            System.out.println("!!! Zadal si nespravny format vstupu, opakuj vstup.");
+            processInput();
+            return;
+        }
+        System.out.println("// Format vstupu spravny");
+
+        //pomocny vypis - vypise hodnoty v group-ach
+        if (matcher.find( )) {
+            System.out.print("// PlayerInput: " + matcher.group(0) );
+            System.out.print(" | group1: " + matcher.group(1) );
+            System.out.print(" | group2: " + matcher.group(2) );
+            System.out.println(" | group3: " + matcher.group(3) );
+        } else {
+            System.out.println("NO MATCH");
+        }
+
+        //overi ci suradnica nie je mimo hracie pole
+        if(!isInputInBorderOfField(matcher.group(2), matcher.group(3) )){
+            System.out.println("");
+            processInput();
+            return;}
 
         doOperation(playerInput);
 
 
     }
 
-    private void doOperation(String playerInput) {
+    private void doOperation(char operation, char osY, int osX) {
         System.out.println("Vykonal som operaciu");
     }
 
-    private boolean isInputInBorderOfField(String playerInput) {
+    private boolean isInputInBorderOfField(String suradnicaZvislaPismeno, String suradnicaHorizontalnaCislo) {
         boolean result = true;
-        String suradnicaZvislaPismeno = pattern.matcher(playerInput).group(2);
-        String suradnicaHorizontalnaCislo = pattern.matcher(playerInput).group(3);
+
 
         if( (int)suradnicaZvislaPismeno.charAt(0) >= (65+ field.getRowCount())) {
             result=false;
-            System.out.println("Zadane pismeno prekracuje pocet riadkov hracieho pola. Opakuj vstup");
+            System.out.print("!!! Pismeno prekracuje pocet riadkov.");
         }
         if( Integer.parseInt(suradnicaHorizontalnaCislo) >= field.getColumnCount()) {
             result=false;
-            System.out.println("Zadane cislo prekracuje pocet stlpcov hracieho pola. Opakuj vstup");
+            System.out.print(" !!! Cislo prekracuje pocet stlpcov.");
 
+        }
+        if(!result){
+            System.out.println(" Opakuj vstup.");
         }
 
         return result;
     }
 
-    private boolean isInputCorrect(String playerInput) {
-        return pattern.matcher(playerInput).find();
 
-    }
     
     
 
