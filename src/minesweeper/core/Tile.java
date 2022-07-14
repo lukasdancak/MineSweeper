@@ -49,6 +49,12 @@ public abstract class Tile {
         this.state = state;
     }
 
+
+    /**
+     * Metoda vrati nahodnu hodnotu z Enum State
+     *
+     * @return vrati State
+     */
     public static State randomGameState() {
         int pick = new Random().nextInt(GameState.values().length);
         return State.values()[pick];

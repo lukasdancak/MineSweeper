@@ -94,10 +94,6 @@ public class Field {
     }
 
 
-    private GameState randomGameState() {
-        int pick = new Random().nextInt(GameState.values().length);
-        return GameState.values()[pick];
-    }
     /**
      * Generates playing field.
      */
@@ -116,7 +112,7 @@ public class Field {
             randomColumn = r.nextInt(this.getColumnCount());
             if (this.getTile(randomRow, randomColumn) == null) {
                 tiles[randomRow][randomColumn] = new Mine();
-                tiles[randomRow][randomColumn].setState(Tile.randomGameState());
+                tiles[randomRow][randomColumn].setState(Tile.randomGameState()); // nastavi nahodny State
                 pocetMinNaUlozenie--;
             }
 
@@ -127,7 +123,7 @@ public class Field {
             for (int j = 0; j < this.getColumnCount(); j++) {
                 if (this.getTile(i, j) == null) {
                     tiles[i][j] = new Clue(this.countAdjacentMines(i, j));
-                    tiles[i][j].setState(Tile.randomGameState());
+                    tiles[i][j].setState(Tile.randomGameState()); // nastavi nahodny State
                 }
             }
         }
@@ -149,17 +145,21 @@ public class Field {
      *
      * @return true if game is solved, false otherwise
      */
-    private boolean isSolved() {
+    private boolean  isSolved() {
 
-        int solvedTiles=0;
-        for(Tile[] tArray:this.tiles){
-            for(Tile t : tArray){
-               if (t.getState()== Tile.State.OPEN){solvedTiles++;}
+        int solvedTiles = 0;
+        for (Tile[] tArray : this.tiles) {
+            for (Tile t : tArray) {
+                if (t.getState() == Tile.State.OPEN) {
+                    solvedTiles++;
+                }
             }
         }
-        if ((this.getColumnCount()*this.getRowCount()-this.getMineCount())==solvedTiles){
+        if ((this.getColumnCount() * this.getRowCount() - this.getMineCount()) == solvedTiles) {
             return true;
-        } else {return false;}
+        } else {
+            return false;
+        }
     }
 
     /**

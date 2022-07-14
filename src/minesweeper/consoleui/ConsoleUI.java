@@ -56,29 +56,31 @@ public class ConsoleUI implements minesweeper.UserInterface {
     public void update() {
         System.out.println("Metoda update():");
         //vypis horizontalnu os
-        StringBuilder hornaOs= new StringBuilder("   ");
-        for(int i=0;i< field.getColumnCount();i++){
-            hornaOs.append(String.format("%3s",i));
+        StringBuilder hornaOs = new StringBuilder("   ");
+        for (int i = 0; i < field.getColumnCount(); i++) {
+            hornaOs.append(String.format("%3s", i));
         }
         System.out.println(hornaOs);
 
         //vypis riadky so zvislo osou na zaciatku
         for (int i = 0; i < this.field.getRowCount(); i++) {
-            System.out.printf("%3s",Character.toString(i+65));
+            System.out.printf("%3s", Character.toString(i + 65));
             for (int j = 0; j < this.field.getColumnCount(); j++) {
-                if(this.field.getTile(i, j).getState()== Tile.State.OPEN) {System.out.print(this.field.getTile(i, j).toString());}
-                if (this.field.getTile(i, j).getState()== Tile.State.MARKED){
-                    System.out.printf("%3s","M");
+                if (this.field.getTile(i, j).getState() == Tile.State.OPEN) {
+                    System.out.print(this.field.getTile(i, j).toString());
                 }
-                if (this.field.getTile(i, j).getState()== Tile.State.CLOSED){
-                    System.out.printf("%3s","C");
+                if (this.field.getTile(i, j).getState() == Tile.State.MARKED) {
+                    System.out.printf("%3s", "M");
+                }
+                if (this.field.getTile(i, j).getState() == Tile.State.CLOSED) {
+                    System.out.printf("%3s", "-");
                 }
 
             }
             System.out.println();
         }
 
-readLine();
+        readLine();
     }
 
 
