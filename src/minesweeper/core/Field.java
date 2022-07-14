@@ -47,7 +47,7 @@ public class Field {
         //generate the field content
         generate();
 
-        printField();
+       // printField(); // vypise cisto iba field bez osi
     }
 
     /**
@@ -112,7 +112,7 @@ public class Field {
             randomColumn = r.nextInt(this.getColumnCount());
             if (this.getTile(randomRow, randomColumn) == null) {
                 tiles[randomRow][randomColumn] = new Mine();
-                tiles[randomRow][randomColumn].setState(Tile.randomGameState()); // nastavi nahodny State
+               // tiles[randomRow][randomColumn].setState(Tile.randomGameState()); // nastavi nahodny State
                 pocetMinNaUlozenie--;
             }
 
@@ -123,7 +123,7 @@ public class Field {
             for (int j = 0; j < this.getColumnCount(); j++) {
                 if (this.getTile(i, j) == null) {
                     tiles[i][j] = new Clue(this.countAdjacentMines(i, j));
-                    tiles[i][j].setState(Tile.randomGameState()); // nastavi nahodny State
+                    //tiles[i][j].setState(Tile.randomGameState()); // nastavi nahodny State
                 }
             }
         }
