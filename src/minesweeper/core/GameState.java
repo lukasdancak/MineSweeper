@@ -18,4 +18,6 @@ public enum GameState {
      * Game solved.
      */
     SOLVED
+
+
 }

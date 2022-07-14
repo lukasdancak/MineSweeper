@@ -1,5 +1,7 @@
 package minesweeper.core;
 
+import java.util.Random;
+
 /**
  * Tile of a field.
  */
@@ -21,6 +23,7 @@ public abstract class Tile {
          * Marked tile.
          */
         MARKED
+
     }
 
     /**
@@ -44,5 +47,10 @@ public abstract class Tile {
      */
     void setState(State state) {
         this.state = state;
+    }
+
+    public static State randomGameState() {
+        int pick = new Random().nextInt(GameState.values().length);
+        return State.values()[pick];
     }
 }

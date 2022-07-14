@@ -93,10 +93,16 @@ public class Field {
         }
     }
 
+
+    private GameState randomGameState() {
+        int pick = new Random().nextInt(GameState.values().length);
+        return GameState.values()[pick];
+    }
     /**
      * Generates playing field.
      */
     private void generate() {
+        System.out.println("Metoda generate():");
 
         // ulozenie min
         int pocetMinNaUlozenie = this.getMineCount();
@@ -110,6 +116,7 @@ public class Field {
             randomColumn = r.nextInt(this.getColumnCount());
             if (this.getTile(randomRow, randomColumn) == null) {
                 tiles[randomRow][randomColumn] = new Mine();
+                tiles[randomRow][randomColumn].setState(Tile.randomGameState());
                 pocetMinNaUlozenie--;
             }
 
@@ -120,6 +127,7 @@ public class Field {
             for (int j = 0; j < this.getColumnCount(); j++) {
                 if (this.getTile(i, j) == null) {
                     tiles[i][j] = new Clue(this.countAdjacentMines(i, j));
+                    tiles[i][j].setState(Tile.randomGameState());
                 }
             }
         }
@@ -142,7 +150,16 @@ public class Field {
      * @return true if game is solved, false otherwise
      */
     private boolean isSolved() {
-        throw new UnsupportedOperationException("Method isSolved not yet implemented");
+
+        int solvedTiles=0;
+        for(Tile[] tArray:this.tiles){
+            for(Tile t : tArray){
+               if (t.getState()== Tile.State.OPEN){solvedTiles++;}
+            }
+        }
+        if ((this.getColumnCount()*this.getRowCount()-this.getMineCount())==solvedTiles){
+            return true;
+        } else {return false;}
     }
 
     /**

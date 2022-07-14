@@ -6,6 +6,7 @@ package minesweeper.core;
 public class Mine extends Tile {
     @Override
     public String toString() {
-        return "*  ";
+
+        return String.format("%3s","*");
     }
 }

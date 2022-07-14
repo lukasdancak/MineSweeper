@@ -24,6 +24,6 @@ public class Clue extends Tile {
 
     @Override
     public String toString() {
-        return Integer.toString(value)+"  ";
+        return String.format("%3s",Integer.toString(value));
     }
 }

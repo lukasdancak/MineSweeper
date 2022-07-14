@@ -5,11 +5,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import minesweeper.core.Field;
+import minesweeper.core.Tile;
 
 /**
  * Console user interface.
  */
-public class ConsoleUI {
+public class ConsoleUI implements minesweeper.UserInterface {
     /**
      * Playing field.
      */
@@ -38,6 +39,7 @@ public class ConsoleUI {
      *
      * @param field field of mines and clues
      */
+    @Override
     public void newGameStarted(Field field) {
         this.field = field;
         do {
@@ -50,8 +52,33 @@ public class ConsoleUI {
     /**
      * Updates user interface - prints the field.
      */
+    @Override
     public void update() {
-        //throw new UnsupportedOperationException("Method update not yet implemented");
+        System.out.println("Metoda update():");
+        //vypis horizontalnu os
+        StringBuilder hornaOs= new StringBuilder("   ");
+        for(int i=0;i< field.getColumnCount();i++){
+            hornaOs.append(String.format("%3s",i));
+        }
+        System.out.println(hornaOs);
+
+        //vypis riadky so zvislo osou na zaciatku
+        for (int i = 0; i < this.field.getRowCount(); i++) {
+            System.out.printf("%3s",Character.toString(i+65));
+            for (int j = 0; j < this.field.getColumnCount(); j++) {
+                if(this.field.getTile(i, j).getState()== Tile.State.OPEN) {System.out.print(this.field.getTile(i, j).toString());}
+                if (this.field.getTile(i, j).getState()== Tile.State.MARKED){
+                    System.out.printf("%3s","M");
+                }
+                if (this.field.getTile(i, j).getState()== Tile.State.CLOSED){
+                    System.out.printf("%3s","C");
+                }
+
+            }
+            System.out.println();
+        }
+
+readLine();
     }
 
 
