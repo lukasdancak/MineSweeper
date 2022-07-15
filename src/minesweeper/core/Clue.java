@@ -26,4 +26,10 @@ public class Clue extends Tile {
     public String toString() {
         return String.format("%3s", Integer.toString(value));
     }
+
+    @Override
+    public void opOpen(Field field) {
+        this.setState(State.OPEN);
+        field.searchForOpenCluesWithZero(); // takto ?
+    }
 }

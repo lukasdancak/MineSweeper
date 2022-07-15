@@ -237,4 +237,8 @@ public class Field {
     public void setState(GameState state) {
         this.state = state;
     }
+
+    // hlada Opened Clue s nulou a dava do stavu OPEN okolite bunky
+    public void searchForOpenCluesWithZero() {
+    }
 }

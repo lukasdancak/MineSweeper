@@ -11,6 +11,12 @@ public abstract class Tile {
         this.setState(State.MARKED);
     }
 
+    public abstract void opOpen(Field field);
+
+    public void opUnMark() {
+        this.setState(State.CLOSED);
+    }
+
     /**
      * Tile states.
      */

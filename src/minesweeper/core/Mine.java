@@ -9,4 +9,10 @@ public class Mine extends Tile {
 
         return String.format("%3s", "*");
     }
+
+    @Override
+    public void opOpen(Field field) {
+        this.setState(State.OPEN);
+        field.setState(GameState.FAILED);
+    }
 }

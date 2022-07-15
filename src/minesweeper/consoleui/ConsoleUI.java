@@ -52,6 +52,7 @@ public class ConsoleUI implements minesweeper.UserInterface {
         do {
             update();
             processInput();
+
             if (field.getState() == GameState.FAILED) {
                 System.out.println("Odkryl si minu. Prehral si");
                 break;
@@ -145,21 +146,26 @@ public class ConsoleUI implements minesweeper.UserInterface {
             System.out.println("Ukoncujem hru");
             System.exit(0);
         }
+        int osYRowInt = osYRow - 65;
 
         // M - oznacenie dlzadice
-        int osYRowInt = osYRow - 65;
         if (operation == 'M') {
             field.getTile(osYRowInt, osXCol).opMark();
             return;
         }
+
+        // U - oznacenie dlzadice
+        if (operation == 'U') {
+            field.getTile(osYRowInt, osXCol).opUnMark();
+            return;
+        }
+
         // O - Odkrytie dlazdice
         if (operation == 'O') {
-            field.getTile(osYRowInt, osXCol).setState(Tile.State.OPEN);
-
+            field.getTile(osYRowInt, osXCol).opOpen(field);
         }
-        //ak tam je bomba >> koniec hry
-        if ( field.getTile(osYRowInt, osXCol) instanceof Mine){field.setState(GameState.FAILED);}
-        //ak tam je nula >> odkryt vsetky okolo
+
+
 
         System.out.println("Vykonal som operaciu");
     }
