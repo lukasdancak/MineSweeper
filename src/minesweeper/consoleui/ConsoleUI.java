@@ -21,7 +21,7 @@ public class ConsoleUI implements minesweeper.UserInterface {
      * Playing field.
      */
     private Field field;
-    Pattern pattern = Pattern.compile("([OM]{1})([A-Z]{1})([0-9]{1,2})");
+    Pattern pattern = Pattern.compile("([OMXU]{1})([A-Z]{1})([0-9]{1,2})");
 
     /**
      * Input reader.
@@ -107,7 +107,7 @@ public class ConsoleUI implements minesweeper.UserInterface {
      */
     private void processInput() {
         System.out.println("Zadaj svoj vstup.");
-        System.out.println("Ocakavany vstup:  X – ukončenie hry, MA1 – označenie dlaždice v riadku A a stĺpci 1, OB4 – odkrytie dlaždice v riadku B a stĺpci 4. ");
+        System.out.println("Ocakavany vstup:  X – ukončenie hry, M - mark, O - open, U - unmark. Napr.: MA1 – označenie dlaždice v riadku A a stĺpci 1");
         String playerInput = readLine();
         Matcher matcher = pattern.matcher(playerInput);
         //overi vstup s patternom
@@ -151,23 +151,25 @@ public class ConsoleUI implements minesweeper.UserInterface {
         // M - oznacenie dlzadice
         if (operation == 'M') {
             field.getTile(osYRowInt, osXCol).opMark();
-            return;
+
         }
 
         // U - oznacenie dlzadice
         if (operation == 'U') {
             field.getTile(osYRowInt, osXCol).opUnMark();
-            return;
+
         }
 
         // O - Odkrytie dlazdice
         if (operation == 'O') {
-            field.getTile(osYRowInt, osXCol).opOpen(field);
+            if(field.getTile(osYRowInt, osXCol).getState()== Tile.State.MARKED){
+                System.out.println("!!! Nie je mozne odkryt dlazdicu v stave MARKED");
+                return;
+            } else { field.getTile(osYRowInt, osXCol).opOpen(field);}
+
         }
 
-
-
-        System.out.println("Vykonal som operaciu");
+        System.out.println("Vykonal som pozadovanu operaciu");
     }
 
     private boolean isInputInBorderOfField(String suradnicaZvislaPismeno, String suradnicaHorizontalnaCislo) {
