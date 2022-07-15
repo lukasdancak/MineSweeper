@@ -1,16 +1,13 @@
 package minesweeper.consoleui;
 
 import java.io.BufferedReader;
-import java.io.Console;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.sql.SQLOutput;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import minesweeper.core.Field;
 import minesweeper.core.GameState;
-import minesweeper.core.Mine;
 import minesweeper.core.Tile;
 
 /**
@@ -21,7 +18,10 @@ public class ConsoleUI implements minesweeper.UserInterface {
      * Playing field.
      */
     private Field field;
-    Pattern pattern = Pattern.compile("([OMXU]{1})([A-Z]{1})([0-9]{1,2})");
+    Pattern pattern1 = Pattern.compile("([OMXU]{1})([A-Z]{1})([0-9]{1,2})");
+    // pattern pre jednopismenkove prikazy - zatial X - exit
+    Pattern pattern2 = Pattern.compile("([X]{1})");
+
 
     /**
      * Input reader.
@@ -110,13 +110,14 @@ public class ConsoleUI implements minesweeper.UserInterface {
         System.out.println("Zadaj svoj vstup.");
         System.out.println("Ocakavany vstup:  X – ukončenie hry, M - mark, O - open, U - unmark. Napr.: MA1 – označenie dlaždice v riadku A a stĺpci 1");
         String playerInput = readLine();
-        Matcher matcher = pattern.matcher(playerInput);
+        Matcher matcher1 = pattern1.matcher(playerInput);
+        Matcher matcher2 = pattern2.matcher(playerInput);
 
         // overi format vstupu - exception handling
         try {
             handleInput(playerInput);
         } catch (WrongFormatException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             System.out.println(e.getMessage());
             processInput();
             return;
@@ -131,33 +132,44 @@ public class ConsoleUI implements minesweeper.UserInterface {
         System.out.println("// Format vstupu spravny");
 
         //pomocny vypis - vypise hodnoty v group-ach
-        if (matcher.find()) {
-            System.out.print("// PlayerInput: " + matcher.group(0));
-            System.out.print(" | group1: " + matcher.group(1));
-            System.out.print(" | group2: " + matcher.group(2));
-            System.out.println(" | group3: " + matcher.group(3));
+        if (matcher1.find()) {
+            System.out.print("// PlayerInput: " + matcher1.group(0));
+            System.out.print(" | group1: " + matcher1.group(1));
+            System.out.print(" | group2: " + matcher1.group(2));
+            System.out.println(" | group3: " + matcher1.group(3));
         } else {
             System.out.println("NO MATCH");
         }
 
         //overi ci suradnica nie je mimo hracie pole
-        if (!isInputInBorderOfField(matcher.group(2), matcher.group(3))) {
+        if (!isInputInBorderOfField(matcher1.group(2), matcher1.group(3))) {
             System.out.println("");
             processInput();
             return;
         }
         //vykona operaciu
-        doOperation(matcher.group(1).charAt(0), matcher.group(2).charAt(0), Integer.parseInt(matcher.group(3)));
+        if(pattern1.matcher(playerInput).matches()) {
+            doOperation(matcher1.group(1).charAt(0), matcher1.group(2).charAt(0), Integer.parseInt(matcher1.group(3)));
+        }
+
+        if(pattern2.matcher(playerInput).matches()) {
+            doOperation(playerInput);
+        }
 
 
     }
 
-    private void doOperation(char operation, char osYRow, int osXCol) {
+    private void doOperation(String playerInput) {
         // X - ukoncenie hry // nefunguje, lebo X vkladam do metody iba X bez suradnic - prerobit
-        if(operation=='X'){
+        if (playerInput.equalsIgnoreCase("X")) {
             System.out.println("Ukoncujem hru");
             System.exit(0);
         }
+
+    }
+
+    private void doOperation(char operation, char osYRow, int osXCol) {
+
         int osYRowInt = osYRow - 65;
 
         // M - oznacenie dlzadice
@@ -174,10 +186,12 @@ public class ConsoleUI implements minesweeper.UserInterface {
 
         // O - Odkrytie dlazdice
         if (operation == 'O') {
-            if(field.getTile(osYRowInt, osXCol).getState()== Tile.State.MARKED){
+            if (field.getTile(osYRowInt, osXCol).getState() == Tile.State.MARKED) {
                 System.out.println("!!! Nie je mozne odkryt dlazdicu v stave MARKED");
                 return;
-            } else { field.getTile(osYRowInt, osXCol).opOpen(field);}
+            } else {
+                field.getTile(osYRowInt, osXCol).opOpen(field);
+            }
 
         }
 
@@ -204,10 +218,10 @@ public class ConsoleUI implements minesweeper.UserInterface {
         return result;
     }
 
-    void handleInput(String playerInput) throws WrongFormatException{
-        Matcher matcher = pattern.matcher(playerInput);
+    void handleInput(String playerInput) throws WrongFormatException {
+
         //overi vstup s patternom
-        if (!pattern.matcher(playerInput).matches()) {
+        if (!pattern1.matcher(playerInput).matches() && !pattern2.matcher(playerInput).matches()) {
 //            System.out.println("!!! Zadal si nespravny format vstupu, opakuj vstup.");
             throw new WrongFormatException("!!! Zadal si nespravny format vstupu, opakuj vstup.");
 //            processInput();
