@@ -252,5 +252,8 @@ public class Field {
         return count;
     }
     // vypise pocet neoznacenych min, teda pocet min MINUS  pocet tiles v stave MARKED
-    int getRemainingMineCount(){}
+    public int getRemainingMineCount(){
+
+        return this.getMineCount()-this.getNumberOf(Tile.State.MARKED);
+    }
 }

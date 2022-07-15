@@ -72,6 +72,7 @@ public class ConsoleUI implements minesweeper.UserInterface {
     @Override
     public void update() {
         System.out.println("Metoda update():");
+        System.out.printf("Pocet poli neoznacenych ako mina je %s (pocet min: %s)%n", field.getRemainingMineCount(), field.getMineCount());
         //vypis horizontalnu os
         StringBuilder hornaOs = new StringBuilder("   ");
         for (int i = 0; i < field.getColumnCount(); i++) {
