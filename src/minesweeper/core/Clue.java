@@ -31,5 +31,7 @@ public class Clue extends Tile {
     public void opOpen(Field field) {
         this.setState(State.OPEN);
         field.searchForOpenCluesWithZero(); // takto ?
+        if (field.isSolved()){field.setState(GameState.SOLVED);}
+
     }
 }

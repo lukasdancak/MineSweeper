@@ -145,7 +145,7 @@ public class Field {
      *
      * @return true if game is solved, false otherwise
      */
-    private boolean  isSolved() {
+    public boolean  isSolved() {
 
         int solvedTiles = 0;
         for (Tile[] tArray : this.tiles) {

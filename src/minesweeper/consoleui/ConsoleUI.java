@@ -154,7 +154,7 @@ public class ConsoleUI implements minesweeper.UserInterface {
 
         }
 
-        // U - oznacenie dlzadice
+        // U - odznacenie dlazdice
         if (operation == 'U') {
             field.getTile(osYRowInt, osXCol).opUnMark();
 
