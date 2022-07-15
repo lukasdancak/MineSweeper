@@ -111,18 +111,22 @@ public class ConsoleUI implements minesweeper.UserInterface {
         String playerInput = readLine();
         Matcher matcher = pattern.matcher(playerInput);
 
+        // overi format vstupu - exception handling
         try {
             handleInput(playerInput);
         } catch (WrongFormatException e) {
             e.printStackTrace();
             System.out.println(e.getMessage());
-        }
-        //overi vstup s patternom
-        if (!pattern.matcher(playerInput).matches()) {
-            System.out.println("!!! Zadal si nespravny format vstupu, opakuj vstup.");
             processInput();
             return;
+
         }
+//        //overi vstup s patternom
+//        if (!pattern.matcher(playerInput).matches()) {
+//            System.out.println("!!! Zadal si nespravny format vstupu, opakuj vstup.");
+//            processInput();
+//            return;
+//        }
         System.out.println("// Format vstupu spravny");
 
         //pomocny vypis - vypise hodnoty v group-ach
