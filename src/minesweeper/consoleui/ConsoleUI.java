@@ -9,6 +9,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import minesweeper.core.Field;
+import minesweeper.core.GameState;
+import minesweeper.core.Mine;
 import minesweeper.core.Tile;
 
 /**
@@ -50,8 +52,17 @@ public class ConsoleUI implements minesweeper.UserInterface {
         do {
             update();
             processInput();
-            //throw new UnsupportedOperationException("Resolve the game state - winning or loosing condition.");
+            if (field.getState() == GameState.FAILED) {
+                System.out.println("Odkryl si minu. Prehral si");
+                break;
+            }
+            if (field.getState() == GameState.SOLVED) {
+                System.out.println("Vyhral si");
+                break;
+            }
         } while (true);
+        System.exit(0);
+
     }
 
     /**
@@ -99,7 +110,7 @@ public class ConsoleUI implements minesweeper.UserInterface {
         String playerInput = readLine();
         Matcher matcher = pattern.matcher(playerInput);
         //overi vstup s patternom
-        if ( !pattern.matcher(playerInput).matches() ){
+        if (!pattern.matcher(playerInput).matches()) {
             System.out.println("!!! Zadal si nespravny format vstupu, opakuj vstup.");
             processInput();
             return;
@@ -107,27 +118,49 @@ public class ConsoleUI implements minesweeper.UserInterface {
         System.out.println("// Format vstupu spravny");
 
         //pomocny vypis - vypise hodnoty v group-ach
-        if (matcher.find( )) {
-            System.out.print("// PlayerInput: " + matcher.group(0) );
-            System.out.print(" | group1: " + matcher.group(1) );
-            System.out.print(" | group2: " + matcher.group(2) );
-            System.out.println(" | group3: " + matcher.group(3) );
+        if (matcher.find()) {
+            System.out.print("// PlayerInput: " + matcher.group(0));
+            System.out.print(" | group1: " + matcher.group(1));
+            System.out.print(" | group2: " + matcher.group(2));
+            System.out.println(" | group3: " + matcher.group(3));
         } else {
             System.out.println("NO MATCH");
         }
 
         //overi ci suradnica nie je mimo hracie pole
-        if(!isInputInBorderOfField(matcher.group(2), matcher.group(3) )){
+        if (!isInputInBorderOfField(matcher.group(2), matcher.group(3))) {
             System.out.println("");
             processInput();
-            return;}
-
-        doOperation(playerInput);
+            return;
+        }
+        //vykona operaciu
+        doOperation(matcher.group(1).charAt(0), matcher.group(2).charAt(0), Integer.parseInt(matcher.group(3)));
 
 
     }
 
-    private void doOperation(char operation, char osY, int osX) {
+    private void doOperation(char operation, char osYRow, int osXCol) {
+        // X - ukoncenie hry
+        if(operation=='X'){
+            System.out.println("Ukoncujem hru");
+            System.exit(0);
+        }
+
+        // M - oznacenie dlzadice
+        int osYRowInt = osYRow - 65;
+        if (operation == 'M') {
+            field.getTile(osYRowInt, osXCol).opMark();
+            return;
+        }
+        // O - Odkrytie dlazdice
+        if (operation == 'O') {
+            field.getTile(osYRowInt, osXCol).setState(Tile.State.OPEN);
+
+        }
+        //ak tam je bomba >> koniec hry
+        if ( field.getTile(osYRowInt, osXCol) instanceof Mine){field.setState(GameState.FAILED);}
+        //ak tam je nula >> odkryt vsetky okolo
+
         System.out.println("Vykonal som operaciu");
     }
 
@@ -135,25 +168,21 @@ public class ConsoleUI implements minesweeper.UserInterface {
         boolean result = true;
 
 
-        if( (int)suradnicaZvislaPismeno.charAt(0) >= (65+ field.getRowCount())) {
-            result=false;
+        if ((int) suradnicaZvislaPismeno.charAt(0) >= (65 + field.getRowCount())) {
+            result = false;
             System.out.print("!!! Pismeno prekracuje pocet riadkov.");
         }
-        if( Integer.parseInt(suradnicaHorizontalnaCislo) >= field.getColumnCount()) {
-            result=false;
+        if (Integer.parseInt(suradnicaHorizontalnaCislo) >= field.getColumnCount()) {
+            result = false;
             System.out.print(" !!! Cislo prekracuje pocet stlpcov.");
 
         }
-        if(!result){
+        if (!result) {
             System.out.println(" Opakuj vstup.");
         }
 
         return result;
     }
-
-
-    
-    
 
 
 }

@@ -20,7 +20,7 @@ public class Minesweeper {
 
         Field field = new Field(9, 9, 10);
         userInterface.newGameStarted(field);
-        System.err.println("Vytvoreny novy objekt MineSweeper");
+
     }
 
     /**

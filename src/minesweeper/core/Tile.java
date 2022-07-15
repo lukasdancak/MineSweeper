@@ -7,6 +7,10 @@ import java.util.Random;
  */
 public abstract class Tile {
 
+    public void opMark() {
+        this.setState(State.MARKED);
+    }
+
     /**
      * Tile states.
      */
@@ -45,7 +49,7 @@ public abstract class Tile {
      *
      * @param state current state of this tile
      */
-    void setState(State state) {
+    public void setState(State state) {
         this.state = state;
     }
 

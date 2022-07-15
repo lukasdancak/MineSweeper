@@ -233,4 +233,8 @@ public class Field {
     public GameState getState() {
         return state;
     }
+
+    public void setState(GameState state) {
+        this.state = state;
+    }
 }
