@@ -141,7 +141,7 @@ public class ConsoleUI implements minesweeper.UserInterface {
     }
 
     private void doOperation(char operation, char osYRow, int osXCol) {
-        // X - ukoncenie hry // nefunguje, lebo regex vyraz neberie samostatne pismeno X - opravit!
+        // X - ukoncenie hry // nefunguje, lebo X vkladam do metody iba X bez suradnic - prerobit
         if(operation=='X'){
             System.out.println("Ukoncujem hru");
             System.exit(0);
