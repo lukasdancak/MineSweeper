@@ -208,7 +208,7 @@ public class ConsoleUI implements minesweeper.UserInterface {
         //overi vstup s patternom
         if (!pattern.matcher(playerInput).matches()) {
 //            System.out.println("!!! Zadal si nespravny format vstupu, opakuj vstup.");
-            throw new WrongFormatException("!!! Zadal si nespravny format vstupu, opakuj vstup.")
+            throw new WrongFormatException("!!! Zadal si nespravny format vstupu, opakuj vstup.");
 //            processInput();
 //            return;
         }

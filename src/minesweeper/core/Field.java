@@ -241,4 +241,16 @@ public class Field {
     // hlada Opened Clue s nulou a dava do stavu OPEN okolite bunky
     public void searchForOpenCluesWithZero() {
     }
+
+    int getNumberOf(Tile.State state){
+        int count =0;
+        for (Tile[] tArray: this.getTiles()){
+            for(Tile t : tArray){
+                if (t.getState()==state){count++;}
+            }
+        }
+        return count;
+    }
+    // vypise pocet neoznacenych min, teda pocet min MINUS  pocet tiles v stave MARKED
+    int getRemainingMineCount(){}
 }
