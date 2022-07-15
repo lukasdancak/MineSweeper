@@ -110,6 +110,13 @@ public class ConsoleUI implements minesweeper.UserInterface {
         System.out.println("Ocakavany vstup:  X – ukončenie hry, M - mark, O - open, U - unmark. Napr.: MA1 – označenie dlaždice v riadku A a stĺpci 1");
         String playerInput = readLine();
         Matcher matcher = pattern.matcher(playerInput);
+
+        try {
+            handleInput(playerInput);
+        } catch (WrongFormatException e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
         //overi vstup s patternom
         if (!pattern.matcher(playerInput).matches()) {
             System.out.println("!!! Zadal si nespravny format vstupu, opakuj vstup.");
@@ -192,5 +199,15 @@ public class ConsoleUI implements minesweeper.UserInterface {
         return result;
     }
 
+    void handleInput(String playerInput) throws WrongFormatException{
+        Matcher matcher = pattern.matcher(playerInput);
+        //overi vstup s patternom
+        if (!pattern.matcher(playerInput).matches()) {
+//            System.out.println("!!! Zadal si nespravny format vstupu, opakuj vstup.");
+            throw new WrongFormatException("!!! Zadal si nespravny format vstupu, opakuj vstup.")
+//            processInput();
+//            return;
+        }
+    }
 
 }
