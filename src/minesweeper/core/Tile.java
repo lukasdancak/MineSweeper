@@ -14,7 +14,7 @@ public abstract class Tile {
     public abstract void opOpen(Field field);
 
     public void opUnMark() {
-        this.setState(State.CLOSED);
+        this.setState(State.CLOSED );
     }
 
     /**

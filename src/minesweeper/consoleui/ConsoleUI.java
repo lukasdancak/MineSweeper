@@ -15,10 +15,10 @@ import minesweeper.core.Tile;
  */
 public class ConsoleUI implements minesweeper.UserInterface {
     /**
-     * Playing field.
+     * Playing field. MA1 OB99
      */
     private Field field;
-    Pattern pattern1 = Pattern.compile("([OMXU]{1})([A-Z]{1})([0-9]{1,2})");
+    Pattern pattern1 = Pattern.compile("([OMU]{1})([A-Z]{1})([0-9]{1,2})");
     // pattern pre jednopismenkove prikazy - zatial X - exit
     Pattern pattern2 = Pattern.compile("([X]{1})");
 
@@ -71,8 +71,9 @@ public class ConsoleUI implements minesweeper.UserInterface {
      */
     @Override
     public void update() {
-        System.out.println("Metoda update():");
+        //System.out.println("Metoda update():");
         System.out.printf("Pocet poli neoznacenych ako mina je %s (pocet min: %s)%n", field.getRemainingMineCount(), field.getMineCount());
+
         //vypis horizontalnu os
         StringBuilder hornaOs = new StringBuilder("   ");
         for (int i = 0; i < field.getColumnCount(); i++) {
@@ -131,15 +132,17 @@ public class ConsoleUI implements minesweeper.UserInterface {
 //        }
         System.out.println("// Format vstupu spravny");
 
-        //pomocny vypis - vypise hodnoty v group-ach
-        if (matcher1.find()) {
-            System.out.print("// PlayerInput: " + matcher1.group(0));
-            System.out.print(" | group1: " + matcher1.group(1));
-            System.out.print(" | group2: " + matcher1.group(2));
-            System.out.println(" | group3: " + matcher1.group(3));
-        } else {
-            System.out.println("NO MATCH");
-        }
+        matcher1.find();
+
+//        //pomocny vypis - vypise hodnoty v group-ach
+//        if (matcher1.find()) {
+//            System.out.print("// PlayerInput: " + matcher1.group(0));
+//            System.out.print(" | group1: " + matcher1.group(1));
+//            System.out.print(" | group2: " + matcher1.group(2));
+//            System.out.println(" | group3: " + matcher1.group(3));
+//        } else {
+//            System.out.println("NO MATCH");
+//        }
 
         //overi ci suradnica nie je mimo hracie pole
         if (!isInputInBorderOfField(matcher1.group(2), matcher1.group(3))) {

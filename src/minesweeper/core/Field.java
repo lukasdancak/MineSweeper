@@ -79,7 +79,7 @@ public class Field {
      * @param column column number
      */
     public void markTile(int row, int column) {
-        //toto dat prec : // throw new UnsupportedOperationException("Method markTile not yet implemented");
+        //toto dat prec : // throw new UnsupportedOperationExc  eption("Method markTile not yet implemented");
 
         if (getTile(row, column).getState() == Tile.State.OPEN) {
             return;
@@ -104,10 +104,11 @@ public class Field {
         int pocetMinNaUlozenie = this.getMineCount();
         Random r = new Random();
         //Random c = new Random();
-        int randomRow = 0;
+        int randomRow =0;
         int randomColumn = 0;
 
         while (pocetMinNaUlozenie > 0) {
+
             randomRow = r.nextInt(this.getRowCount());
             randomColumn = r.nextInt(this.getColumnCount());
             if (this.getTile(randomRow, randomColumn) == null) {
