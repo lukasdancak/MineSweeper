@@ -11,6 +11,7 @@ public class Minesweeper {
      * User interface.
      */
     private UserInterface userInterface;
+    private long startMillis;
 
     /**
      * Constructor.
@@ -19,8 +20,13 @@ public class Minesweeper {
         userInterface = new ConsoleUI();
 
         Field field = new Field(9, 9, 10);
+        startMillis=System.currentTimeMillis();
         userInterface.newGameStarted(field);
 
+    }
+
+    int getPlayingSeconds (){
+        return (int) (System.currentTimeMillis()-startMillis)/1000;
     }
 
     /**
