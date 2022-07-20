@@ -12,16 +12,24 @@ public class Minesweeper {
      */
     private UserInterface userInterface;
     private long startMillis;
+    private static Minesweeper instance;
 
     /**
      * Constructor.
      */
     private Minesweeper() {
+        instance=this;
         userInterface = new ConsoleUI();
 
         Field field = new Field(9, 9, 10);
         startMillis=System.currentTimeMillis();
         userInterface.newGameStarted(field);
+
+
+    }
+    public static Minesweeper getInstance(){
+        if(instance==null){ instance=new Minesweeper();}
+        return instance;
 
     }
 

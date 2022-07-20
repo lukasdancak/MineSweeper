@@ -98,7 +98,7 @@ public class Field {
      * Generates playing field.
      */
     private void generate() {
-        System.out.println("Metoda generate():");
+        //System.out.println("Metoda generate():");
 
         // ulozenie min
         int pocetMinNaUlozenie = this.getMineCount();
