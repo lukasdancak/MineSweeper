@@ -15,6 +15,7 @@ public class Minesweeper {
     private long startMillis;
     private static Minesweeper instance;
     BestTimes bestTimes;
+    private Settings setting; //nastavenie obtiaznosti
 
     /**
      * Constructor.
@@ -26,6 +27,7 @@ public class Minesweeper {
         startMillis=System.currentTimeMillis();
         bestTimes = new BestTimes();
         userInterface.newGameStarted(field);
+        setting = Settings.load();
 
 
     }
@@ -52,5 +54,14 @@ public class Minesweeper {
 
     public BestTimes getBestTimes() {
         return bestTimes;
+    }
+
+    public Settings getSetting() {
+        return setting;
+    }
+
+    public void setSetting(Settings setting) {
+        this.setting = setting;
+        this.setting.save();
     }
 }
