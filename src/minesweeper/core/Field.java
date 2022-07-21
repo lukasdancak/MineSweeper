@@ -67,10 +67,29 @@ public class Field {
                 state = GameState.FAILED;
                 return;
             }
+            //skontroluj ci tile je nula, ak je spusti metodu openAdjescentTiles()
+            if (tile.toString().equalsIgnoreCase("0")){
+                openAdjescentTiles(row, column);
+
+            }
 
             if (isSolved()) {
                 state = GameState.SOLVED;
                 return;
+            }
+        }
+    }
+
+    private void openAdjescentTiles(int row, int column) {
+        for (int rowOffset = -1; rowOffset <= 1; rowOffset++) {
+            int actRow = row + rowOffset;
+            if (actRow >= 0 && actRow < rowCount) {
+                for (int columnOffset = -1; columnOffset <= 1; columnOffset++) {
+                    int actColumn = column + columnOffset;
+                    if (actColumn >= 0 && actColumn < columnCount) {
+                        openTile(actRow, actColumn);
+                    }
+                }
             }
         }
     }

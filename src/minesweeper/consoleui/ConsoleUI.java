@@ -65,6 +65,7 @@ public class ConsoleUI implements minesweeper.UserInterface {
                 break;
             }
         } while (true);
+        System.out.println(Minesweeper.getInstance().getBestTimes());
         System.exit(0);
 
     }
