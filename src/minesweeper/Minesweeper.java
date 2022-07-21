@@ -1,6 +1,7 @@
 package minesweeper;
 
 import minesweeper.consoleui.ConsoleUI;
+import minesweeper.core.BestTimes;
 import minesweeper.core.Field;
 
 /**
@@ -13,6 +14,7 @@ public class Minesweeper {
     private UserInterface userInterface;
     private long startMillis;
     private static Minesweeper instance;
+    BestTimes bestTimes;
 
     /**
      * Constructor.
@@ -20,9 +22,9 @@ public class Minesweeper {
     private Minesweeper() {
         instance=this;
         userInterface = new ConsoleUI();
-
         Field field = new Field(9, 9, 10);
         startMillis=System.currentTimeMillis();
+        bestTimes = new BestTimes();
         userInterface.newGameStarted(field);
 
 
@@ -45,5 +47,9 @@ public class Minesweeper {
     public static void main(String[] args) {
         System.out.println("Hello " + System.getProperty("user.name") + " !");
         new Minesweeper();
+    }
+
+    public BestTimes getBestTimes() {
+        return bestTimes;
     }
 }
