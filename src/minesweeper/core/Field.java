@@ -1,5 +1,7 @@
 package minesweeper.core;
 
+import minesweeper.Minesweeper;
+
 import java.util.Random;
 
 /**
@@ -41,6 +43,7 @@ public class Field {
     public Field(int rowCount, int columnCount, int mineCount) {
         this.rowCount = rowCount;
         this.columnCount = columnCount;
+        if(mineCount>(rowCount*columnCount)){mineCount=rowCount*columnCount;}
         this.mineCount = mineCount;
         tiles = new Tile[rowCount][columnCount];
 
