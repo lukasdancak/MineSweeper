@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import minesweeper.Minesweeper;
 import minesweeper.core.Field;
 import minesweeper.core.GameState;
 import minesweeper.core.Tile;
@@ -59,6 +60,8 @@ public class ConsoleUI implements minesweeper.UserInterface {
             }
             if (field.getState() == GameState.SOLVED) {
                 System.out.println("Vyhral si");
+                Minesweeper.getInstance().getBestTimes().addPlayerTime(System.getProperty("user.name"),
+                        Minesweeper.getInstance().getPlayingSeconds());
                 break;
             }
         } while (true);
@@ -151,11 +154,11 @@ public class ConsoleUI implements minesweeper.UserInterface {
             return;
         }
         //vykona operaciu
-        if(pattern1.matcher(playerInput).matches()) {
+        if (pattern1.matcher(playerInput).matches()) {
             doOperation(matcher1.group(1).charAt(0), matcher1.group(2).charAt(0), Integer.parseInt(matcher1.group(3)));
         }
 
-        if(pattern2.matcher(playerInput).matches()) {
+        if (pattern2.matcher(playerInput).matches()) {
             doOperation(playerInput);
         }
 

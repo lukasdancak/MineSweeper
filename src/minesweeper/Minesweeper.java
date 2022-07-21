@@ -35,7 +35,7 @@ public class Minesweeper {
 
     }
 
-    int getPlayingSeconds (){
+    public int getPlayingSeconds (){
         return (int) (System.currentTimeMillis()-startMillis)/1000;
     }
 
